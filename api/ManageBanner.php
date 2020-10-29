@@ -16,6 +16,9 @@ if (checkIfKeyExist($PostData, ['type'])) {
 		$hideText = $hide === 1 ? 'visible' : 'hide';
 		$db->Execute("UPDATE tb_banner SET visible=? WHERE id=?", [$hide, $PostData->id]);
 		$response->Success("Sukses $hideText banner");
+	} else if ($PostData->type === 'change' && checkIfKeyExist($PostData, ['id', 'target', 'value'])) {
+		$db->Execute("UPDATE tb_banner SET $PostData->target=? WHERE id=?", [$PostData->value, $PostData->id]);
+		$response->Success($db->error());
 	} else {
 		$response->Error("Please check parameters");
 	}
