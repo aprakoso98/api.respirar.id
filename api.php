@@ -28,5 +28,7 @@ if (intval($now) >= 1583584804) {
 }
 
 if (!$debug) {
+	$logger = new Logger();
+	$logger->log(jsonify($response));
 	echo jsonify($response);
 }

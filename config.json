@@ -3,6 +3,6 @@
 		"host": "localhost",
 		"user": "root",
 		"pass": "",
-		"selectdb": "respirar.id"
+		"selectdb": "respirar_data"
 	}
 }

@@ -13,7 +13,12 @@ if (checkIfKeyExist($PostData, ["target", "data"])) {
 		$cases = join(" WHEN id=", $cases);
 		$query = "UPDATE $table SET position = (CASE WHEN id=$cases END) WHERE id in ($ids)";
 		$data = $db->Execute($query, []);
-		$response->Success("Sukses ubah urutan");
+		$err = $db->error();
+		if ($err[2]) {
+			$response->Error($err[2]);
+		} else {
+			$response->Success("Gagal ubah urutan");
+		}
 	} else {
 		$response->Error("Gagal ubah urutan");
 	}
