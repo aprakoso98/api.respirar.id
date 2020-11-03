@@ -1,8 +1,0 @@
-{
-	"db": {
-		"host": "localhost",
-		"user": "root",
-		"pass": "",
-		"selectdb": "respirar_data"
-	}
-}

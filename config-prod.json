@@ -1,8 +1,0 @@
-{
-	"db": {
-	 "host": "localhost",
-	 "user": "ruangmember",
-	 "pass": "#Passworddbnya2020",
-	 "selectdb": "tau_cms"
-	}
- }
