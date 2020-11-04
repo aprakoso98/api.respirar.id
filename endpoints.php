@@ -10,7 +10,15 @@ foreach ($files as $key => $filename) {
 	$action = str_replace(".php", "", $filename);
 	if ($PostData->action === $action) {
 		$found = true;
-		require "api/$filename";
+		if (preg_match('/Get\w+/', $action)) {
+			require "api/$filename";
+		} else {
+			// if (checkIfKeyExist($header, ['Authorization'])) {
+			require "api/$filename";
+			// } else {
+			// 	$response->Error('Not authorization');
+			// }
+		}
 		break;
 	}
 	if (!$found) {

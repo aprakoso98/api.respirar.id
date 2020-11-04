@@ -69,9 +69,11 @@ class Upload{
 		$data = explode( ',', $base64File );
 		$data = base64_decode($data[1]);
 		file_put_contents($output_file, $data);
-		if ($withFormat)
+		if ($withFormat){
 			return [sprintf("%s.$format", $id), $format];
-		return sprintf("%s.$format", $id);
+		} else {
+			return sprintf("%s.$format", $id);
+		}
 	}
 	function base64_to_jpeg($base64Img, $name = null) {
 		return $this->base64_to_jpeg($base64Img, $name);
