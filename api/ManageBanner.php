@@ -1,7 +1,11 @@
 <?php
 // $debug = true;
-$upload = new Upload(['folderPath' => 'files/banner/']);
 if (checkIfKeyExist($PostData, ['type'])) {
+	$path = 'files/banner/';
+	$upload = new Upload(['folderPath' => $path]);
+	if (!is_dir($path)) {
+		mkdir($path, 0777, true);
+	}
 	if ('insert' && checkIfKeyExist($PostData, ['data'])) {
 		foreach ($PostData->data as $file) {
 			$image = "/banner/" . $upload->base64_to_file($file->file);
