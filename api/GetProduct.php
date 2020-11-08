@@ -9,7 +9,7 @@ if (checkIfKeyExist($PostData, [])) {
 			$response->Error("Data tidak ditemukan");
 		}
 	} else if (checkIfKeyExist($PostData, ['highlight'])) {
-		$data = $db->ExecuteAll("SELECT $columns WHERE isHighlighted=? ORDER BY highLightIndex ASC", ['1']);
+		$data = $db->ExecuteAll("SELECT $columns FROM tb_product WHERE isHighlighted=? ORDER BY highLightIndex ASC", [1]);
 		$response->Success($data);
 	} else if (checkIfKeyExist($PostData, ['search'])) {
 		$data = $db->ExecuteAll("SELECT $columns FROM tb_product WHERE productName LIKE '%$PostData->search%'", []);

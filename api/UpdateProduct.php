@@ -1,6 +1,6 @@
 <?php
 if (checkIfKeyExist($PostData, ['data'])) {
-	$path = 'files/product/';
+	$path = "$filePath/product/";
 	$upload = new Upload(['folderPath' => $path]);
 	if (!is_dir($path)) {
 		mkdir($path, 0777, true);

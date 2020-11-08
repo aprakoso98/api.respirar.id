@@ -1,7 +1,7 @@
 <?php
 
 if (checkIfKeyExist($PostData, ["file"])) {
-	$rootPath = 'files';
+	$rootPath = "$filePath";
 	$path = sprintf('/%s', $PostData->path ? $PostData->path : '');
 	$targetPath = sprintf('%s%s', $rootPath, $path);
 	$upload = new Upload(['folderPath' => $targetPath]);

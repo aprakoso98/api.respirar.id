@@ -1,6 +1,6 @@
 <?php
 if (checkIfKeyExist($PostData, ['data'])) {
-	$path = 'files/marketplaces/';
+	$path = "$filePath/marketplaces/";
 	$upload = new Upload(['folderPath' => $path]);
 	if (!is_dir($path)) {
 		mkdir($path, 0777, true);

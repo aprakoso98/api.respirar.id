@@ -6,17 +6,21 @@ header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Max-Age: 86400");
 
-$path = "";
-$dev = '{"host":"localhost","user":"root","pass":"","selectdb":"respirar_data"}';
-$prod = '{"host":"localhost","user":"respirar_data","pass":"R3sp1r4r.1d","selectdb":"respirar_data"}';
-$GLOBALS['config'] = json_decode(sprintf('{"db": %s}', $dev));
-// $GLOBALS['config'] = json_decode(sprintf('{"db": %s}', $prod));
-
 require $path . "./php-main/main.php";
-
 $header = (object) apache_request_headers();
 $PostData = postData_2();
 $response = new OutputJSON();
+
+$path = "";
+$filePath = '../files.respirar.id';
+$dev = '{"host":"localhost","user":"root","pass":"","selectdb":"respirar_data"}';
+$prod = '{"host":"localhost","user":"respirar_data","pass":"R3sp1r4r.1d","selectdb":"respirar_data"}';
+if ($header->Host === '127.0.0.1') {
+	$GLOBALS['config'] = json_decode(sprintf('{"db": %s}', $dev));
+} else {
+	$GLOBALS['config'] = json_decode(sprintf('{"db": %s}', $prod));
+}
+
 $db = new CRUD();
 
 require $path . "./endpoints.php";
