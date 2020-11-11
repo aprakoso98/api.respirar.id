@@ -6,24 +6,42 @@ if (checkIfKeyExist($PostData, ['data'])) {
 		mkdir($path, 0777, true);
 	}
 	foreach ($PostData->data as $data) {
+		$images = ['image', 'image2', 'image3', 'image4', 'image5'];
+		$keys = ['productName', 'productUrl', 'sku', 'availability', 'shortDescriptio', 'description', 'sizes', 'prices', 'marketplaces'];
+		$dataImage = [];
 		if (checkIfKeyExist($data, ['id'])) {
 			if ($data->deleted) {
 				$db->Execute('DELETE FROM tb_product WHERE id=?', [$data->id]);
 			} else {
-				$image = $data->image;
-				if ($data->uploadedNewImage) {
-					$image = $upload->base64_to_file($data->image);
-					$image = '/product/' . $image;
+				foreach ($key as $images) {
+					if ($data[$key] && strlen($data[$key]) > 100) {
+						$image = $upload->base64_to_file($data->image);
+						array_push($dataImage, '/product/' . $image);
+						array_push($keys, $key . "=?");
+					}
 				}
-				$db->Execute('UPDATE tb_product SET productName=?, productUrl=?, sku=?, availability=?, shortDescription=?, description=?, image=?, sizes=?, prices=?, marketplaces=? WHERE id=?', [$data->productName, $data->productUrl, $data->sku, $data->availability, $data->shortDescription, $data->description, $image, $data->sizes, $data->prices, $data->marketplaces, $data->id]);
+				$queryKeys = join(', ', $keys);
+				$queryData = array_merge([$data->productName, $data->productUrl, $data->sku, $data->availability, $data->shortDescription, $data->description, $data->sizes, $data->prices, $data->marketplaces], $dataImage, [$data->id]);
+				$db->Execute('UPDATE tb_product SET $queryKeys WHERE id=?', $queryData);
 			}
 		} else {
-			$image = $upload->base64_to_file($data->image);
-			$image = '/product/' . $image;
-			$db->Execute('INSERT INTO tb_product (productName, productUrl, sku, availability, shortDescription, description, image, sizes, prices, marketplaces) VALUES (?,?,?,?,?,?,?,?,?,?)', [$data->productName, $data->productUrl, $data->sku, $data->availability, $data->shortDescription, $data->description, $image, $data->sizes, $data->prices, $data->marketplaces]);
+			$questionMark = [];
+			foreach ($key as $images) {
+				if ($data[$key] && strlen($data[$key]) > 100) {
+					$image = $upload->base64_to_file($data->image);
+					array_push($dataImage, '/product/' . $image);
+					array_push($keys, $key);
+					array_push($questionMark, "?");
+				}
+			}
+			$queryKeys = join(', ', $keys);
+			$queryQuestion = join(',', $questionMark);
+			$queryData = array_merge([$data->productName, $data->productUrl, $data->sku, $data->availability, $data->shortDescription, $data->description, $data->sizes, $data->prices, $data->marketplaces], $dataImage);
+			$db->Execute('UPDATE tb_product SET $queryKeys WHERE id=?', $queryData);
+			$db->Execute("INSERT INTO tb_product ($keys) VALUES ($queryQuestion)", $queryData);
 		}
 	}
-	$response->Success("Success update about");
+	$response->Success("Success update product");
 } else {
 	$response->Error('Please check parameters');
 }

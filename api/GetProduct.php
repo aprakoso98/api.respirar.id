@@ -1,6 +1,6 @@
 <?php
 if (checkIfKeyExist($PostData, [])) {
-	$columns = "id, productName, productUrl, sku, availability, shortDescription, description, image, sizes, prices, marketplaces";
+	$columns = "id, productName, productUrl, sku, availability, shortDescription, description, image, image2, image3, image4, image5, sizes, prices, marketplaces";
 	if ($PostData->productUrl) {
 		$data = $db->Execute("SELECT $columns FROM tb_product WHERE productUrl=?", [$PostData->productUrl]);
 		if ($data) {
