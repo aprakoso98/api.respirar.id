@@ -56,8 +56,9 @@ class Upload{
 	public $path;
 	public $allowed;
 	function __construct($param=['allowed'=>"images", 'folderPath'=>'images/']){
+		$fileTypes = ["images"=>['jpg', 'jpeg', 'png', 'gif']];
 		$this->path = $param['folderPath'];
-		$this->allowed = $this->fileTypes()->$param['allowed'];
+		$this->allowed = $fileTypes[$param['allowed']];
 	}
 	function base64_to_file($base64File, $name = null, $withFormat = false) {
 		$id = $name ? $name : gen_uuid();
@@ -165,7 +166,7 @@ class Upload{
 		return $a;
 	}
 	function fileTypes(){
-		return (object)array("images"=>array('jpg', 'jpeg', 'png', 'gif'));
+		return ["images"=>['jpg', 'jpeg', 'png', 'gif']];
 	}
 	function removeFile($fileName){
 		if (!empty($fileName)){

@@ -6,12 +6,16 @@ header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Max-Age: 86400");
 
+$path = "";
+
 require $path . "./php-main/main.php";
+
 $header = (object) apache_request_headers();
 $PostData = postData_2();
 $response = new OutputJSON();
 
-$path = "";
+$debug = false;
+
 $filePath = '../files.respirar.id';
 $dev = '{"host":"localhost","user":"root","pass":"","selectdb":"respirar_data"}';
 $prod = '{"host":"localhost","user":"respirar_data","pass":"R3sp1r4r.1d","selectdb":"respirar_data"}';

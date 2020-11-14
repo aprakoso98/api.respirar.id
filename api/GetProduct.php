@@ -1,7 +1,10 @@
 <?php
 if (checkIfKeyExist($PostData, [])) {
-	$columns = "id, productName, productUrl, sku, availability, shortDescription, description, image, image2, image3, image4, image5, sizes, prices, marketplaces";
-	if ($PostData->productUrl) {
+	$columns = "id, productName, kategori, productUrl, sku, availability, shortDescription, description, image, image2, image3, image4, image5, image6, sizes, prices, marketplaces";
+	if ($PostData->isKategori) {
+		$data = $db->ExecuteAll('SELECT kategori FROM tb_product GROUP BY kategori');
+		$response->Success($data);
+	} else if ($PostData->productUrl) {
 		$data = $db->Execute("SELECT $columns FROM tb_product WHERE productUrl=?", [$PostData->productUrl]);
 		if ($data) {
 			$response->Success($data);
