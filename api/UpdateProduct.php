@@ -10,7 +10,7 @@ if (checkIfKeyExist($PostData, ['data'])) {
 	$sqlData = [];
 	foreach ($PostData->data as $data) {
 		$images = ['image', 'image2', 'image3', 'image4', 'image5', 'image6'];
-		$keys = ['productName', 'productUrl', 'sku', 'availability', 'shortDescription', 'description', 'sizes', 'prices', 'marketplaces'];
+		$keys = ['productName', 'productUrl', 'sku', 'kategori', 'availability', 'shortDescription', 'description', 'sizes', 'prices', 'marketplaces'];
 		$query = "";
 		$dataImage = [];
 		$dataQuery = [];
@@ -31,7 +31,7 @@ if (checkIfKeyExist($PostData, ['data'])) {
 					}
 				}
 				$queryKeys = join(', ', $keys);
-				$dataQuery = array_merge([$data->productName, $data->productUrl, $data->sku, $data->availability, $data->shortDescription, $data->description, $data->sizes, $data->prices, $data->marketplaces], $dataImage, [$data->id]);
+				$dataQuery = array_merge([$data->productName, $data->productUrl, $data->sku, $data->kategori, $data->availability, $data->shortDescription, $data->description, $data->sizes, $data->prices, $data->marketplaces], $dataImage, [$data->id]);
 				$sql .= "UPDATE tb_product SET $queryKeys WHERE id=?;";
 				$sqlData = array_merge($sqlData, $dataQuery);
 			}
@@ -51,7 +51,7 @@ if (checkIfKeyExist($PostData, ['data'])) {
 				}
 				$queryKeys = join(', ', $keys);
 				$queryQuestion = join(',', $questionMark);
-				$dataQuery = array_merge([$data->productName, $data->productUrl, $data->sku, $data->availability, $data->shortDescription, $data->description, $data->sizes, $data->prices, $data->marketplaces], $dataImage);
+				$dataQuery = array_merge([$data->productName, $data->productUrl, $data->sku, $data->kategori, $data->availability, $data->shortDescription, $data->description, $data->sizes, $data->prices, $data->marketplaces], $dataImage);
 				$sql .= "INSERT INTO tb_product ($queryKeys) VALUES ($queryQuestion);";
 				$sqlData = array_merge($sqlData, $dataQuery);
 			}
