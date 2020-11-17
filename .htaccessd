@@ -1,7 +1,6 @@
 # RewriteEngine On
-# RewriteCond %{HTTPS} !=on
+# RewriteCond %{HTTPS} != on
 # RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
-Header set Access-Control-Allow-Origin "*"
-# Header add Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Origin *
 Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
